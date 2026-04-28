@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform, type HTMLMotionProps } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type HTMLMotionProps, type Transition } from "framer-motion";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -129,6 +129,8 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
+const smoothTransition: Transition = { duration: 0.65, ease: "easeOut" };
+
 function Index() {
   const [activeProject, setActiveProject] = useState<(typeof projects)[number] | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -175,7 +177,7 @@ function Index() {
       whileInView: "visible",
       viewport: { once: true, margin: "-90px" },
       variants: fadeUp,
-      transition: { duration: 0.65, ease: "easeOut" },
+      transition: smoothTransition,
     }),
     [],
   );
