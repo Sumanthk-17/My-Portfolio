@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type HTMLMotionProps } from "framer-motion";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -28,7 +28,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, type ReactNode, useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -431,7 +431,7 @@ function Navbar({ menuOpen, setMenuOpen, lightMode, setLightMode }: { menuOpen: 
   );
 }
 
-function Section({ id, eyebrow, title, children, ...motionProps }: { id: string; eyebrow: string; title: string; children: React.ReactNode }) {
+function Section({ id, eyebrow, title, children, ...motionProps }: { id: string; eyebrow: string; title: string; children: ReactNode } & HTMLMotionProps<"section">) {
   return (
     <motion.section id={id} className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28" {...motionProps}>
       <div className="mb-10 max-w-3xl">
@@ -443,11 +443,11 @@ function Section({ id, eyebrow, title, children, ...motionProps }: { id: string;
   );
 }
 
-function SocialIcon({ label, icon, href }: { label: string; icon: React.ReactNode; href: string }) {
+function SocialIcon({ label, icon, href }: { label: string; icon: ReactNode; href: string }) {
   return <a aria-label={label} href={href} className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-glass text-foreground backdrop-blur-xl transition hover:-translate-y-1 hover:border-primary hover:text-neon-cyan">{icon}</a>;
 }
 
-function InfoList({ title, icon, items }: { title: string; icon: React.ReactNode; items: string[] }) {
+function InfoList({ title, icon, items }: { title: string; icon: ReactNode; items: string[] }) {
   return (
     <div className="glass-panel rounded-3xl p-6">
       <div className="mb-5 flex items-center gap-3 font-display text-xl font-semibold text-foreground"><span className="text-neon-cyan">{icon}</span>{title}</div>
