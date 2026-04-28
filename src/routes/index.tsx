@@ -135,7 +135,6 @@ function Index() {
   const [activeProject, setActiveProject] = useState<(typeof projects)[number] | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightMode, setLightMode] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const [cursor, setCursor] = useState({ x: -200, y: -200 });
   const [typedRole, setTypedRole] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
@@ -144,11 +143,6 @@ function Index() {
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28 });
   const heroY = useTransform(scrollYProgress, [0, 0.35], [0, shouldReduceMotion ? 0 : -90]);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setLoaded(true), 900);
-    return () => window.clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     if (shouldReduceMotion) return;
@@ -203,22 +197,6 @@ function Index() {
   return (
     <main className={lightMode ? "bg-foreground text-background" : "bg-background text-foreground"}>
       <motion.div className="fixed left-0 top-0 z-50 h-1 origin-left bg-gradient-to-r from-neon-cyan via-primary to-accent" style={{ scaleX: progress }} />
-
-      {!loaded && (
-        <motion.div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-background"
-          exit={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <motion.div
-            className="glass-panel flex items-center gap-3 rounded-2xl px-6 py-4 font-display text-sm tracking-[0.24em] text-muted-foreground"
-            animate={{ scale: [0.98, 1.03, 0.98] }}
-            transition={{ duration: 1.2, repeat: Infinity }}
-          >
-            <Sparkles className="size-5 text-neon-cyan" /> LAUNCHING PORTFOLIO
-          </motion.div>
-        </motion.div>
-      )}
 
       {!shouldReduceMotion && (
         <motion.div
